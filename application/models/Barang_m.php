@@ -23,9 +23,34 @@ class Barang_m extends CI_Model {
 		$this->db->insert($table, $data);
 	}
 
+	public function insert_where($table, $data, $where)
+	{
+		$this->db->where($where);
+		$this->db->insert($table, $data);
+	}
+
 	public function update($table, $data, $where)
 	{
 		$this->db->where($where);
 		$this->db->update($table, $data);
+	}
+
+	public function getAllGambarBarang()
+	{
+		$this->db->select('barang.*, count(gambar.id_barang) as totalGambar');
+		$this->db->from('barang');
+		$this->db->join('gambar', 'gambar.id_barang = barang.id_barang', 'left');
+		$this->db->group_by('barang.id_barang');
+		$this->db->order_by('barang.id_barang');
+		return $this->db->get();
+	}
+
+	public function getByIdBarang($id_barang)
+	{
+		// $this->db->select("SELECT * FROM barang INNER JOIN gambar ON barang.id_barang = gambar.id_barang WHERE barang.id_barang = '$id_barang'");
+		// $this->db->from('barang');
+		$this->db->join('gambar', 'gambar.id_barang = barang.id_barang', 'left');
+		// $this->db->where('barang.id_barang', $id_barang);
+		return $this->db->get_where('barang', $id_barang);
 	}
 }

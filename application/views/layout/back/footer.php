@@ -24,5 +24,6 @@
 <script src="<?= base_url('assets/back'); ?>/dist/js/adminlte.min.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('assets/back'); ?>/dist/js/demo.js"></script>
+<script src="<?= base_url('assets/back'); ?>/dist/js/myscript.js"></script>
 </body>
 </html>

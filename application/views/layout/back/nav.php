@@ -147,6 +147,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="<?= base_url('admin/gambarBarang'); ?>" class="nav-link<?= $this->uri->segment(2) == 'gambarBarang' ? ' active' : '' ?>">
+              <i class="nav-icon fas fa-image"></i>
+              <p>Gambar Barang</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?= base_url('auth/logout'); ?>" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Logout</p>

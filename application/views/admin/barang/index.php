@@ -120,8 +120,9 @@
           <small class="muted text-danger"><?= form_error('deskripsi'); ?></small>
         </div>
         <div class="form-group">
-          <label for="gambar">Gambar</label>
-          <input type="file" name="gambar" id="gambar" class="form-control-file">
+          <label for="gambar">Gambar</label><br>
+          <img src="<?= base_url('assets/back/img/barang/no-image.png'); ?>" id="gambar_load" width="100px">
+          <input type="file" name="gambar" id="preview_gambar" class="form-control-file">
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
@@ -181,9 +182,9 @@
         </div>
         <div class="form-group">
           <label for="gambar">Gambar</label><br>
-          <img src="<?= base_url('assets/back/img/barang/' . $b->gambar); ?>" width="100px">
-          <input type="file" name="gambar" id="gambar" class="form-control-file">
-          <input type="text" name="gambarLama" id="gambarLama" class="form-control" value="<?= $b->gambar; ?>">
+          <img src="<?= base_url('assets/back/img/barang/' . $b->gambar); ?>" id="gambar_load" width="100px">
+          <input type="file" name="gambar" id="preview_gambar" class="form-control-file">
+          <input type="hidden" name="gambarLama" id="gambarLama" class="form-control" value="<?= $b->gambar; ?>">
         </div>
         <div class="modal-footer justify-content-between">
           <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

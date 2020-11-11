@@ -55,6 +55,9 @@ class Barang extends CI_Controller {
             {
                 $this->upload->data('file_name');
             }
+        } else {
+        	$this->session->set_flashdata('pesan', '<div class="alert alert-danger">Gambar Wajib Diupload.</div>');
+            redirect('admin/barang');
         }
 
 		$nama = html_escape(ucwords($this->input->post('nama', true)));
