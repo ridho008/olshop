@@ -8,7 +8,6 @@ class Barang extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Barang_m');
 		//Load Dependencies
-
 	}
 
 	// List all your items

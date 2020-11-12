@@ -2,11 +2,55 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Barang_m');
+		$this->load->model('Kategori_m');
+		//Load Dependencies
+	}
+
 	public function index()
 	{
+		$this->db->order_by('id_barang', 'desc');
+		$barang = $this->Barang_m->get_join('barang', 'kategori')->result();
+		$navKategori = $this->Kategori_m->get('kategori')->result();
 		$data = [
 			'title' => 'Home',
-			'layout' => 'home/index'
+			'layout' => 'home/index',
+			'barang' => $barang,
+			'navKategori' => $navKategori
+		];
+		$this->load->view('layout/front/wrapper', $data);
+	}
+
+	public function kategori($kat)
+	{
+		$navKategori = $this->Kategori_m->get('kategori')->result();
+		$kategori = $this->Barang_m->get_join_where('barang', 'kategori', ['nama_kategori' => $kat])->result();
+		$rowKat = $this->Barang_m->get_join_where('barang', 'kategori', ['nama_kategori' => $kat])->row();
+		$data = [
+			'title' => 'Kategori ' . $rowKat->nama_kategori,
+			'layout' => 'home/kategori',
+			'kategori' => $kategori,
+			'rowKat' => $rowKat,
+			'navKategori' => $navKategori
+		];
+		$this->load->view('layout/front/wrapper', $data);
+	}
+
+	public function detail($id_barang)
+	{
+		$navKategori = $this->Kategori_m->get('kategori')->result();
+		$barang = $this->Barang_m->get_join_where('barang', 'kategori', ['id_barang' => $id_barang])->row();
+		$gambarBarang = $this->Barang_m->get_where('gambar', ['id_barang' => $id_barang])->result();
+
+		$data = [
+			'title' =>  $barang->nama_barang,
+			'layout' => 'home/detail_barang',
+			'barang' => $barang,
+			'navKategori' => $navKategori,
+			'gambarBarang' => $gambarBarang
 		];
 		$this->load->view('layout/front/wrapper', $data);
 	}

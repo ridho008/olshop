@@ -49,7 +49,10 @@
         <small class="muted text-danger"><?= form_error('password'); ?></small>
         <div class="row">
           <!-- /.col -->
-          <div class="col-4">
+          <div class="col-lg-4">
+            <a href="<?= base_url(); ?>" class="btn btn-info btn-block">Website</a>
+          </div>
+          <div class="col-lg-4 offset-lg-4">
             <button type="submit" class="btn btn-primary btn-block">Masuk</button>
           </div>
           <!-- /.col -->

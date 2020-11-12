@@ -18,6 +18,13 @@ class Barang_m extends CI_Model {
 		return $this->db->get($table1);
 	}
 
+	public function get_join_where($table1, $table2, $where)
+	{
+		$this->db->join("$table2", "$table2.id_kategori = $table1.id_kategori");
+		$this->db->where($where);
+		return $this->db->get($table1);
+	}
+
 	public function insert($table, $data)
 	{
 		$this->db->insert($table, $data);
