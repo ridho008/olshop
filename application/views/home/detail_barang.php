@@ -28,17 +28,29 @@
                 </h2>
               </div>
 
+              <?php 
+              echo form_open('belanja/add');
+              echo form_hidden('id', $barang->id_barang);
+              echo form_hidden('price', $barang->harga);
+              echo form_hidden('name', $barang->nama_barang);
+              echo form_hidden('redirect_page', str_replace('index.php/', '', current_url()));
+              ?>
               <div class="mt-4">
-                <div class="btn btn-primary btn-lg btn-flat">
-                  <i class="fas fa-cart-plus fa-lg mr-2"></i> 
-                  Pesan
+                <div class="row">
+                  <div class="col-lg-3">
+                    <div class="btn btn-default btn-lg btn-flat">
+                      <input type="number" name="qty" class="form-control" value="1" min="1">
+                    </div>
+                  </div>
+                  <div class="col-lg-8">
+                    <button type="submit" class="btn btn-primary swalDefaultSuccess"><i class="fas fa-cart-plus fa-lg mr-2"></i> 
+                      Pesan</button>
+                  </div>
                 </div>
+                
 
-                <!-- <div class="btn btn-default btn-lg btn-flat">
-                  <i class="fas fa-heart fa-lg mr-2"></i> 
-                  Add to Wishlist
-                </div> -->
               </div>
+              <?= form_close(); ?>
 
               <div class="mt-4 product-share">
                 <a href="#" class="text-gray">

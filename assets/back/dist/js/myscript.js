@@ -12,6 +12,20 @@ $('#preview_gambar').change(function() {
   bacaGambar(this);
 });
 
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
+
+$('.swalDefaultSuccess').click(function() {
+  Toast.fire({
+    icon: 'success',
+    title: 'Barang Berhasil Ditambahkan ke Keranjang.'
+  })
+});
+
 // window.setTimeout(function() {
 //   $('.alert').fadeTo(500, 0).slideUp(500, function() {
 //     $(this).remove();

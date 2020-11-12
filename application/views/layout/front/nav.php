@@ -27,61 +27,57 @@
       </li>
     </ul>
     <ul class="navbar-nav ml-auto">
+      <?php 
+      $keranjang = $this->cart->contents(); 
+      $jml_item = 0;
+      foreach ($keranjang as $key => $value) {
+        $jml_item = $jml_item + $value['qty'];
+      }
+      ?>
       <li class="nav-item dropdown">
         <a class="nav-link" data-toggle="dropdown" href="#">
           <i class="fas fa-shopping-cart text-white"></i>
-          <span class="badge badge-danger navbar-badge">3</span>
+          <span class="badge badge-danger navbar-badge"><?= $jml_item; ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+          <?php foreach($keranjang as $krj) : ?>
+          <?php 
+          $this->load->model('Barang_m');
+          $id = $krj['id'];
+          $barang = $this->Barang_m->get_join_where('barang', 'kategori', ['id_barang' => $id])->row();
+          ?>
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
+            <!-- Barang Start -->
             <div class="media">
-              <img src="../../dist/img/user1-128x128.jpg" alt="User Avatar" class="img-size-50 mr-3 img-circle">
+              <img src="<?= base_url('assets/back/img/barang/' . $barang->gambar); ?>" alt="<?= $barang->nama_barang; ?>" class="img-size-50 mr-3 img-circle">
               <div class="media-body">
                 <h3 class="dropdown-item-title">
-                  Brad Diesel
-                  <span class="float-right text-sm text-danger"><i class="fas fa-star"></i></span>
+                  <?= $krj['name']; ?>
                 </h3>
-                <p class="text-sm">Call me whenever you can...</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+                <p class="text-sm"><?= $krj['qty']; ?> x Rp.<?= number_format($krj['price'], 0, ',', '.'); ?></p>
+                <p class="text-sm text-muted"><i class="far fa-calculator mr-1"></i> <?= $this->cart->format_number($krj['subtotal']); ?></p>
               </div>
             </div>
-            <!-- Message End -->
+            <!-- Barang End -->
           </a>
           <div class="dropdown-divider"></div>
+          <?php endforeach; ?>
           <a href="#" class="dropdown-item">
-            <!-- Message Start -->
+            <!-- Barang Start -->
             <div class="media">
-              <img src="../../dist/img/user8-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  John Pierce
-                  <span class="float-right text-sm text-muted"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">I got your message bro</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
+              <div class="media-body text-center">
+                <tr>
+                  <td colspan="2"> </td>
+                  <td class="right"><strong>Total</strong></td>
+                  <td class="right">Rp.<?php echo $this->cart->format_number($this->cart->total()); ?></td>
+                </tr>
               </div>
             </div>
-            <!-- Message End -->
+            <!-- Barang End -->
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <!-- Message Start -->
-            <div class="media">
-              <img src="../../dist/img/user3-128x128.jpg" alt="User Avatar" class="img-size-50 img-circle mr-3">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  Nora Silvester
-                  <span class="float-right text-sm text-warning"><i class="fas fa-star"></i></span>
-                </h3>
-                <p class="text-sm">The subject goes here</p>
-                <p class="text-sm text-muted"><i class="far fa-clock mr-1"></i> 4 Hours Ago</p>
-              </div>
-            </div>
-            <!-- Message End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Messages</a>
+          <a href="#" class="dropdown-item dropdown-footer">Lihat Keranjang</a>
+          <a href="#" class="dropdown-item dropdown-footer">Checkout</a>
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
