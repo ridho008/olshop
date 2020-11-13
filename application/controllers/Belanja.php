@@ -2,9 +2,25 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Belanja extends CI_Controller {
+	public function __construct()
+	{
+		parent::__construct();
+		$this->load->model('Barang_m');
+		$this->load->model('Kategori_m');
+		//Load Dependencies
+	}
+	
 	public function index()
 	{
-		// $this->load->view('welcome_message');
+		// $this->db->order_by('id_barang', 'desc');
+		// $barang = $this->Barang_m->get_join('barang', 'kategori')->result();
+		$navKategori = $this->Kategori_m->get('kategori')->result();
+		$data = [
+			'title' => 'Keranjang Belanja',
+			'layout' => 'home/keranjang_belanja',
+			'navKategori' => $navKategori
+		];
+		$this->load->view('layout/front/wrapper', $data);
 	}
 
 	public function add()

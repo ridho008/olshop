@@ -40,44 +40,48 @@
           <span class="badge badge-danger navbar-badge"><?= $jml_item; ?></span>
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <?php foreach($keranjang as $krj) : ?>
-          <?php 
-          $this->load->model('Barang_m');
-          $id = $krj['id'];
-          $barang = $this->Barang_m->get_join_where('barang', 'kategori', ['id_barang' => $id])->row();
-          ?>
-          <a href="#" class="dropdown-item">
-            <!-- Barang Start -->
-            <div class="media">
-              <img src="<?= base_url('assets/back/img/barang/' . $barang->gambar); ?>" alt="<?= $barang->nama_barang; ?>" class="img-size-50 mr-3 img-circle">
-              <div class="media-body">
-                <h3 class="dropdown-item-title">
-                  <?= $krj['name']; ?>
-                </h3>
-                <p class="text-sm"><?= $krj['qty']; ?> x Rp.<?= number_format($krj['price'], 0, ',', '.'); ?></p>
-                <p class="text-sm text-muted"><i class="far fa-calculator mr-1"></i> <?= $this->cart->format_number($krj['subtotal']); ?></p>
+          <?php if(empty($keranjang)) : ?>
+            <p class="dropdown-item text-center">Keranjang Masih Kosong</p>
+          <?php else : ?>
+            <?php foreach($keranjang as $krj) : ?>
+            <?php 
+            $this->load->model('Barang_m');
+            $id = $krj['id'];
+            $barang = $this->Barang_m->get_join_where('barang', 'kategori', ['id_barang' => $id])->row();
+            ?>
+            <a href="#" class="dropdown-item">
+              <!-- Barang Start -->
+              <div class="media">
+                <img src="<?= base_url('assets/back/img/barang/' . $barang->gambar); ?>" alt="<?= $barang->nama_barang; ?>" class="img-size-50 mr-3 img-circle">
+                <div class="media-body">
+                  <h3 class="dropdown-item-title">
+                    <?= $krj['name']; ?>
+                  </h3>
+                  <p class="text-sm"><?= $krj['qty']; ?> x Rp.<?= number_format($krj['price'], 0, ',', '.'); ?></p>
+                  <p class="text-sm text-muted"><i class="far fa-calculator mr-1"></i> <?= $this->cart->format_number($krj['subtotal']); ?></p>
+                </div>
               </div>
-            </div>
-            <!-- Barang End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <?php endforeach; ?>
-          <a href="#" class="dropdown-item">
-            <!-- Barang Start -->
-            <div class="media">
-              <div class="media-body text-center">
-                <tr>
-                  <td colspan="2"> </td>
-                  <td class="right"><strong>Total</strong></td>
-                  <td class="right">Rp.<?php echo $this->cart->format_number($this->cart->total()); ?></td>
-                </tr>
+              <!-- Barang End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <?php endforeach; ?>
+            <a href="#" class="dropdown-item">
+              <!-- Barang Start -->
+              <div class="media">
+                <div class="media-body text-center">
+                  <tr>
+                    <td colspan="2"> </td>
+                    <td class="right"><strong>Total</strong></td>
+                    <td class="right">Rp.<?php echo $this->cart->format_number($this->cart->total()); ?></td>
+                  </tr>
+                </div>
               </div>
-            </div>
-            <!-- Barang End -->
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">Lihat Keranjang</a>
-          <a href="#" class="dropdown-item dropdown-footer">Checkout</a>
+              <!-- Barang End -->
+            </a>
+            <div class="dropdown-divider"></div>
+            <a href="<?= base_url('belanja'); ?>" class="dropdown-item dropdown-footer">Lihat Keranjang</a>
+            <a href="#" class="dropdown-item dropdown-footer">Checkout</a>
+        <?php endif; ?>
         </div>
       </li>
       <!-- Notifications Dropdown Menu -->
