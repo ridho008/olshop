@@ -30,11 +30,12 @@ class Home extends CI_Controller {
 		$kategori = $this->Barang_m->get_join_where('barang', 'kategori', ['nama_kategori' => $kat])->result();
 		$rowKat = $this->Barang_m->get_join_where('barang', 'kategori', ['nama_kategori' => $kat])->row();
 		$data = [
-			'title' => 'Kategori ' . $rowKat->nama_kategori,
+			'title' => 'Kategori ' . ucwords($kat),
 			'layout' => 'home/kategori',
 			'kategori' => $kategori,
 			'rowKat' => $rowKat,
-			'navKategori' => $navKategori
+			'navKategori' => $navKategori,
+			'kat' => $kat
 		];
 		$this->load->view('layout/front/wrapper', $data);
 	}

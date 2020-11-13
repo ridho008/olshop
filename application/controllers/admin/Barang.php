@@ -25,6 +25,7 @@ class Barang extends CI_Controller {
 		$this->form_validation->set_rules('kategori', 'Nama Kategori', 'trim|required');
 		$this->form_validation->set_rules('harga', 'Harga Barang', 'trim|required');
 		$this->form_validation->set_rules('deskripsi', 'Deskripsi', 'trim|required');
+		$this->form_validation->set_rules('berat', 'Berat', 'trim|required');
 		if ($this->form_validation->run() == FALSE) {
 			$this->load->view('layout/back/wrapper', $data);
 		} else {
@@ -63,13 +64,15 @@ class Barang extends CI_Controller {
 		$kategori = html_escape($this->input->post('kategori', true));
 		$harga = html_escape($this->input->post('harga', true));
 		$deskripsi = html_escape($this->input->post('deskripsi', true));
+		$berat = html_escape($this->input->post('berat', true));
 
 		$data = [
 			'nama_barang' => $nama,
 			'id_kategori' => $kategori,
 			'harga' => $harga,
 			'deskripsi' => $deskripsi,
-			'gambar' => $gambar
+			'gambar' => $gambar,
+			'berat' => $berat
 		];
 
 		$this->Barang_m->insert('barang', $data);
@@ -112,12 +115,14 @@ class Barang extends CI_Controller {
 		$kategori = html_escape($this->input->post('kategori', true));
 		$harga = html_escape($this->input->post('harga', true));
 		$deskripsi = html_escape($this->input->post('deskripsi', true));
+		$berat = html_escape($this->input->post('berat', true));
 
 		$data = [
 			'nama_barang' => $nama,
 			'id_kategori' => $kategori,
 			'harga' => $harga,
-			'deskripsi' => $deskripsi
+			'deskripsi' => $deskripsi,
+			'berat' => $berat
 		];
 
 		$this->Barang_m->update('barang', $data, ['id_barang' => $id]);

@@ -9,11 +9,14 @@ class Belanja extends CI_Controller {
 		$this->load->model('Kategori_m');
 		//Load Dependencies
 	}
-	
+
 	public function index()
 	{
 		// $this->db->order_by('id_barang', 'desc');
 		// $barang = $this->Barang_m->get_join('barang', 'kategori')->result();
+		if (empty($this->cart->contents())) {
+			redirect('home');
+		}
 		$navKategori = $this->Kategori_m->get('kategori')->result();
 		$data = [
 			'title' => 'Keranjang Belanja',
@@ -35,6 +38,32 @@ class Belanja extends CI_Controller {
 
 		$this->cart->insert($data);
 		redirect($redirect_page, 'refresh');
+	}
+
+	public function update()
+	{
+		$i = 1;
+		foreach ($this->cart->contents() as $items) {
+			$data = array(
+				'rowid' => $items['rowid'],
+				'qty'   => $this->input->post($i.'[qty]')
+			);
+			$this->cart->update($data);
+			$i++;
+		}
+		redirect('belanja');
+	}
+
+	public function delete($row_id)
+	{	
+		$this->cart->remove($row_id);
+		redirect('belanja');
+	}
+
+	public function delall()
+	{
+		$this->cart->destroy();
+		redirect('belanja');
 	}
 
 

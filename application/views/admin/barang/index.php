@@ -59,7 +59,7 @@
                     <td>
                       <img src="<?= base_url('assets/back/img/barang/' . $b->gambar); ?>" width="100px">
                     </td>
-                    <td><?= $b->nama_barang; ?></td>
+                    <td><?= $b->nama_barang; ?><br> <?= $b->berat; ?> Gram</td>
                     <td><?= $b->nama_kategori; ?></td>
                     <td><?= number_format($b->harga, 0, ',', '.'); ?></td>
                     <td><?= $b->deskripsi; ?></td>
@@ -113,6 +113,11 @@
           <label for="harga">Harga Barang</label>
           <input type="text" name="harga" id="harga" class="form-control">
           <small class="muted text-danger"><?= form_error('harga'); ?></small>
+        </div>
+        <div class="form-group">
+          <label for="berat">Berat (Gram)</label>
+          <input type="number" name="berat" id="berat" class="form-control">
+          <small class="muted text-danger"><?= form_error('berat'); ?></small>
         </div>
         <div class="form-group">
           <label for="deskripsi">Deskripsi</label>
@@ -174,6 +179,11 @@
           <label for="harga">Harga Barang</label>
           <input type="text" name="harga" id="harga" class="form-control" value="<?= $b->harga; ?>">
           <small class="muted text-danger"><?= form_error('harga'); ?></small>
+        </div>
+        <div class="form-group">
+          <label for="berat">Berat (Gram)</label>
+          <input type="number" name="berat" id="berat" value="<?= $b->berat; ?>" class="form-control">
+          <small class="muted text-danger"><?= form_error('berat'); ?></small>
         </div>
         <div class="form-group">
           <label for="deskripsi">Deskripsi</label>
