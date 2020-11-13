@@ -153,6 +153,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="<?= base_url('admin/pengaturan'); ?>" class="nav-link<?= $this->uri->segment(2) == 'pengaturan' ? ' active' : '' ?>">
+              <i class="nav-icon fas fa-cogs"></i>
+              <p>Pengaturan</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?= base_url('auth/logout'); ?>" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Logout</p>

@@ -54,5 +54,7 @@ $route['default_controller'] = 'home';
 $route['kategori/(:any)'] = 'home/kategori/$1';
 $route['barang/(:num)'] = 'home/detail/$1';
 
+$route['admin/pengaturan'] = 'admin/dashboard/pengaturan';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
