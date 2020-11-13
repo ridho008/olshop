@@ -86,12 +86,20 @@
       </li>
       <!-- Notifications Dropdown Menu -->
       <li class="nav-item dropdown">
+        <?php if($this->session->userdata('email') == '') : ?>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="#">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-white" href="<?= base_url('daftar'); ?>">Daftar</a>
+          </li>
+        <?php else: ?>
         <a class="nav-link" data-toggle="dropdown" href="#">
-          <i class="far fa-bell"></i>
-          <span class="badge badge-warning navbar-badge">15</span>
+          <i class="far fa-user text-white"></i>
+          <!-- <span class="badge badge-warning navbar-badge">15</span> -->
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <span class="dropdown-item dropdown-header">Hallo Admin</span>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
             <i class="fas fa-envelope mr-2"></i> 4 new messages
@@ -110,6 +118,7 @@
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
         </div>
+      <?php endif; ?>
       </li>
     </ul>
   </div>

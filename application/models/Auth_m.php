@@ -9,4 +9,9 @@ class Auth_m extends CI_Model {
 		$this->db->where(['username' => $username, 'password' => $password]);
 		return $this->db->get()->row();
 	}
+
+	public function insert($table, $data)
+	{
+		$this->db->insert($table, $data);
+	}
 }

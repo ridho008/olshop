@@ -56,5 +56,8 @@ $route['barang/(:num)'] = 'home/detail/$1';
 
 $route['admin/pengaturan'] = 'admin/dashboard/pengaturan';
 
+// Daftar & Login Pelanggan
+$route['daftar'] = 'pelanggan/daftar';
+
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
