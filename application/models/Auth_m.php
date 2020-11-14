@@ -10,6 +10,14 @@ class Auth_m extends CI_Model {
 		return $this->db->get()->row();
 	}
 
+	public function login_pelanggan($email, $password)
+	{
+		$this->db->select('*');
+		$this->db->from('pelanggan');
+		$this->db->where(['email' => $email, 'password' => $password]);
+		return $this->db->get()->row();
+	}
+
 	public function insert($table, $data)
 	{
 		$this->db->insert($table, $data);

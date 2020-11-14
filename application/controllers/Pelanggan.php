@@ -34,5 +34,42 @@ class Pelanggan extends CI_Controller {
 		}
 	}
 
+	public function login()
+	{
+		$this->pelanggan_login->cek_login();
+		$data = [
+			'title' => 'Halaman Login'
+		];
+
+		$this->form_validation->set_rules('email', 'Email', 'trim|required');
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('auth/login_pelanggan', $data);
+		} else {
+			$email = html_escape($this->input->post('email', true));
+			$password = html_escape(sha1($this->input->post('password', true)));
+			$this->pelanggan_login->login($email, $password);
+		}
+	}
+
+	public function logout()
+	{
+		$this->pelanggan_login->logout_akun();
+	}
+
+	public function profil()
+	{
+		$this->pelanggan_login->proteksi_halaman();
+		$this->load->model('Kategori_m');
+		$navKategori = $this->Kategori_m->get('kategori')->result();
+		$data = [
+			'title' => 'Akun Saya',
+			'layout' => 'pelanggan/profil',
+			'navKategori' => $navKategori
+		];
+
+		$this->load->view('layout/front/wrapper', $data);
+	}
+
 	
 }

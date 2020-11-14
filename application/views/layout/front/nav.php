@@ -88,7 +88,7 @@
       <li class="nav-item dropdown">
         <?php if($this->session->userdata('email') == '') : ?>
           <li class="nav-item">
-            <a class="nav-link text-white" href="#">Login</a>
+            <a class="nav-link text-white" href="<?= base_url('login'); ?>">Login</a>
           </li>
           <li class="nav-item">
             <a class="nav-link text-white" href="<?= base_url('daftar'); ?>">Daftar</a>
@@ -99,24 +99,17 @@
           <!-- <span class="badge badge-warning navbar-badge">15</span> -->
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">Hallo Admin</span>
+          <span class="dropdown-item dropdown-header">Hallo, <?= $this->session->userdata('nama_pelanggan'); ?></span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
+          <a href="<?= base_url('pelanggan/profil'); ?>" class="dropdown-item">
+            <i class="fas fa-user-circle mr-2"></i> Akun Saya
           </a>
           <div class="dropdown-divider"></div>
           <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
-            <span class="float-right text-muted text-sm">12 hours</span>
+            <i class="fas fa-shopping-cart mr-2"></i> Pesanan Saya
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          <a href="<?= base_url('pelanggan/logout'); ?>" class="dropdown-item dropdown-footer"><i class="fas fa-sign-out-alt mr-2"></i> Logout</a>
         </div>
       <?php endif; ?>
       </li>

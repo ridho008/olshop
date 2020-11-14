@@ -26,58 +26,40 @@
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Daftar Akun Pelanggan Olshop</p>
+      <p class="login-box-msg">Masuk Sekarang</p>
       <?= $this->session->flashdata('pesan'); ?>
-      <?= form_open('pelanggan/daftar'); ?>
+      <?= form_open('pelanggan/login'); ?>
         <div class="input-group mb-3">
-          <input type="text" name="nama" autofocus="on" class="form-control" placeholder="Nama Lengkap" value="<?= set_value('nama'); ?>">
+          <input type="email" name="email" autofocus="on" class="form-control" placeholder="Email">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-user"></span>
             </div>
           </div>
         </div>
-        <small class="muted text-danger"><?= form_error('nama'); ?></small>
-        <div class="input-group mb-3">
-          <input type="email" name="email" class="form-control" value="<?= set_value('email'); ?>" placeholder="Email">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-envelope"></span>
-            </div>
-          </div>
-        </div>
         <small class="muted text-danger"><?= form_error('email'); ?></small>
         <div class="input-group mb-3">
-          <input type="password" name="password1" class="form-control" placeholder="Password">
+          <input type="password" name="password" class="form-control" placeholder="Password">
           <div class="input-group-append">
             <div class="input-group-text">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
-        <small class="muted text-danger"><?= form_error('password1'); ?></small>
-        <div class="input-group mb-3">
-          <input type="password" name="password2" class="form-control" placeholder="Konfirmasi Password">
-          <div class="input-group-append">
-            <div class="input-group-text">
-              <span class="fas fa-lock"></span>
-            </div>
-          </div>
-        </div>
-        <small class="muted text-danger"><?= form_error('password2'); ?></small>
+        <small class="muted text-danger"><?= form_error('password'); ?></small>
         <div class="row">
           <!-- /.col -->
           <div class="col-lg-4">
             <a href="<?= base_url(); ?>" class="btn btn-info btn-block">Website</a>
           </div>
           <div class="col-lg-4 offset-lg-4">
-            <button type="submit" class="btn btn-primary btn-block">Daftar</button>
+            <button type="submit" class="btn btn-primary btn-block">Masuk</button>
           </div>
           <!-- /.col -->
         </div>
       <?= form_close(); ?>
       <p class="mb-0">
-        <a href="<?= base_url('login'); ?>" class="text-center">Sudah Punya Akun ?</a>
+        <a href="<?= base_url('daftar'); ?>" class="text-center">Daftar Akun Baru</a>
       </p>
     </div>
     <!-- /.login-card-body -->

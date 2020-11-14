@@ -58,6 +58,7 @@ $route['admin/pengaturan'] = 'admin/dashboard/pengaturan';
 
 // Daftar & Login Pelanggan
 $route['daftar'] = 'pelanggan/daftar';
+$route['login'] = 'pelanggan/login';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
