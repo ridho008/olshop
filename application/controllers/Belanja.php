@@ -66,5 +66,17 @@ class Belanja extends CI_Controller {
 		redirect('belanja');
 	}
 
+	public function checkout()
+	{
+		$this->pelanggan_login->proteksi_halaman();
+		$navKategori = $this->Kategori_m->get('kategori')->result();
+		$data = [
+			'title' => 'Checkout Belanja',
+			'layout' => 'home/checkout',
+			'navKategori' => $navKategori
+		];
+		$this->load->view('layout/front/wrapper', $data);
+	}
+
 
 }

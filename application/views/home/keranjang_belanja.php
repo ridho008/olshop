@@ -68,7 +68,7 @@
                   <button type="submit" class="btn btn-primary"><i class="fas fa-save"></i> Update Keranjang</button>
                 </div>
                 <div class="col-lg-2">
-                  <a href="" class="btn btn-success"><i class="fas fa-check"></i> Checkout</a>
+                  <a href="<?= base_url('belanja/checkout'); ?>" class="btn btn-success"><i class="fas fa-check"></i> Checkout</a>
                 </div>
               </div>
             <?php form_close(); ?>
