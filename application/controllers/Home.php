@@ -55,4 +55,16 @@ class Home extends CI_Controller {
 		];
 		$this->load->view('layout/front/wrapper', $data);
 	}
+
+	public function pesanan_saya()
+	{
+		$navKategori = $this->Kategori_m->get('kategori')->result();
+		$data = [
+			'title' => 'Pesanan Saya',
+			'layout' => 'home/pesanan_saya',
+			'navKategori' => $navKategori
+		];
+		$this->load->view('layout/front/wrapper', $data);
+	}
+
 }

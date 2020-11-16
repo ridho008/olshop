@@ -7,6 +7,7 @@ class Belanja extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Barang_m');
 		$this->load->model('Kategori_m');
+		$this->load->model('Transaksi_m');
 		//Load Dependencies
 	}
 
@@ -51,6 +52,7 @@ class Belanja extends CI_Controller {
 			$this->cart->update($data);
 			$i++;
 		}
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success">Keranjang Belanja Berhasil Di Perbarui.</div>');
 		redirect('belanja');
 	}
 
@@ -75,7 +77,56 @@ class Belanja extends CI_Controller {
 			'layout' => 'home/checkout',
 			'navKategori' => $navKategori
 		];
-		$this->load->view('layout/front/wrapper', $data);
+
+		$this->form_validation->set_rules('provinsi', 'Provinsi', 'trim|required');
+		$this->form_validation->set_rules('kota', 'Kota', 'trim|required');
+		$this->form_validation->set_rules('ekpedisi', 'Ekpedisi', 'trim|required');
+		$this->form_validation->set_rules('paket', 'Paket', 'trim|required');
+		$this->form_validation->set_rules('penerima', 'Nama Penerima', 'trim|required');
+		$this->form_validation->set_rules('no_hp', 'No Hp', 'trim|required');
+		$this->form_validation->set_rules('kode_pos', 'Kode Pos', 'trim|required');
+		$this->form_validation->set_rules('alamat', 'Alamat', 'trim|required');
+
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('layout/front/wrapper', $data);
+		} else {
+			$data = [
+				'no_order' => html_escape($this->input->post('no_order', true)),
+				'tgl_order' => date('Y-m-d'),
+				'nama_penerima' => html_escape($this->input->post('penerima', true)),
+				'no_hp' => html_escape($this->input->post('no_hp', true)),
+				'provinsi' => html_escape($this->input->post('provinsi', true)),
+				'kota' => html_escape($this->input->post('kota', true)),
+				'alamat' => html_escape($this->input->post('alamat', true)),
+				'kode_pos' => html_escape($this->input->post('kode_pos', true)),
+				'ekpedisi' => html_escape($this->input->post('ekpedisi', true)),
+				'paket' => html_escape($this->input->post('paket', true)),
+				'estimasi' => html_escape($this->input->post('estimasi', true)),
+				'ongkir' => html_escape($this->input->post('ongkir', true)),
+				'berat' => html_escape($this->input->post('berat', true)),
+				'grand_total' => html_escape($this->input->post('grand_total', true)),
+				'total_bayar' => html_escape($this->input->post('total_bayar', true)),
+				'status_bayar' => 0,
+				'status_order' => 0
+			];
+
+			$this->Transaksi_m->insert('transaksi', $data);
+
+			// penyimpanan data ke tb rincian_transaksi
+			$i = 1;
+			foreach($this->cart->contents() as $items) {
+				$data_rinci = [
+					'no_order' => html_escape($this->input->post('no_order', true)),
+					'id_barang' => html_escape($items['id']),
+					'qty' => html_escape($this->input->post('qty' . $i++, true))
+				];
+				$this->Transaksi_m->insert('rincian_transaksi', $data_rinci);
+			}
+
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success">Pesanan Berhasil Di Proses.</div>');
+			$this->cart->destroy();
+			redirect('pesanan_saya');
+		}
 	}
 
 

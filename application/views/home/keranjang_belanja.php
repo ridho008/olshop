@@ -2,6 +2,7 @@
   <div class="row mt-5">
     <div class="col-lg-12">
     <h3>Keranjang Belanja</h3>
+    <?= $this->session->flashdata('pesan'); ?>
       <!-- Default box -->
       <div class="card card-solid">
         <div class="card-body">

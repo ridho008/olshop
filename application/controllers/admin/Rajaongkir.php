@@ -42,9 +42,9 @@ class Rajaongkir extends CI_Controller {
 			// var_dump($array_response['rajaongkir']['results']);
 			// echo "</pre>";
 			$data_provinsi = $array_response['rajaongkir']['results'];
-			echo "<option>-- Pilih Provinsi --</option>";
+			echo "<option value=''>-- Pilih Provinsi --</option>";
 			foreach ($data_provinsi as $key => $value) {
-				echo "<option value='" . $value['province_id'] ."' id_provinsi='". $value['province_id'] ."'>". $value['province'] ."</option>";
+				echo "<option value='" . $value['province'] ."' id_provinsi='". $value['province_id'] ."'>". $value['province'] ."</option>";
 			}
 		}
 	}
@@ -81,7 +81,7 @@ class Rajaongkir extends CI_Controller {
 			// echo "</pre>";
 			$data_kota = $array_response['rajaongkir']['results'];
 			foreach ($data_kota as $key => $value) {
-				echo "<option value='" . $value['city_id'] ."' id_kota='". $value['city_id'] ."'>". $value['city_name'] ."</option>";
+				echo "<option value='" . $value['city_name'] ."' id_kota='". $value['city_id'] ."'>". $value['city_name'] ."</option>";
 			}
 		}
 	}
@@ -135,7 +135,7 @@ class Rajaongkir extends CI_Controller {
 			$data_paket = $array_response['rajaongkir']['results'][0]['costs'];
 			echo "<option value=''>-- Pilih Paket --</option>";
 			foreach ($data_paket as $key => $value) {
-				echo "<option value='". $value['service'] ."' ongkir='". $value['cost'][0]['value'] ."'>". $value['service'] . ' - Rp.'. $value['cost'][0]['value']. ' ' .$value['cost'][0]['etd']. ' Hari' ."</option>";
+				echo "<option value='". $value['service'] ."' ongkir='". $value['cost'][0]['value'] ."' estimasi='". $value['cost'][0]['etd'] ."'>". $value['service'] . ' - Rp.'. $value['cost'][0]['value']. ' ' .$value['cost'][0]['etd']. ' Hari' ."</option>";
 			}
 		}
 	}
