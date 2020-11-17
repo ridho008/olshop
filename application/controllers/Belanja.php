@@ -91,6 +91,7 @@ class Belanja extends CI_Controller {
 			$this->load->view('layout/front/wrapper', $data);
 		} else {
 			$data = [
+				'id_pelanggan' => html_escape($this->input->post('id_pelanggan', true)),
 				'no_order' => html_escape($this->input->post('no_order', true)),
 				'tgl_order' => date('Y-m-d'),
 				'nama_penerima' => html_escape($this->input->post('penerima', true)),
@@ -127,6 +128,17 @@ class Belanja extends CI_Controller {
 			$this->cart->destroy();
 			redirect('pesanan_saya');
 		}
+	}
+
+	public function bayar($id_transaksi)
+	{
+		$navKategori = $this->Kategori_m->get('kategori')->result();
+		$data = [
+			'title' => 'Pembayaran',
+			'layout' => 'home/bayar',
+			'navKategori' => $navKategori
+		];
+		$this->load->view('layout/front/wrapper', $data);
 	}
 
 

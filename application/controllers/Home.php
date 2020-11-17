@@ -7,6 +7,7 @@ class Home extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Barang_m');
 		$this->load->model('Kategori_m');
+		$this->load->model('Transaksi_m');
 		//Load Dependencies
 	}
 
@@ -59,10 +60,16 @@ class Home extends CI_Controller {
 	public function pesanan_saya()
 	{
 		$navKategori = $this->Kategori_m->get('kategori')->result();
+		$where = [
+			'id_pelanggan' => $this->session->userdata('id_pelanggan'),
+			'status_bayar' => 0
+		];
+		$belum_bayar = $this->Transaksi_m->get_where('transaksi', $where)->result();
 		$data = [
 			'title' => 'Pesanan Saya',
 			'layout' => 'home/pesanan_saya',
-			'navKategori' => $navKategori
+			'navKategori' => $navKategori,
+			'belum_bayar' => $belum_bayar
 		];
 		$this->load->view('layout/front/wrapper', $data);
 	}

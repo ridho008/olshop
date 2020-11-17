@@ -19,6 +19,7 @@ class Pelanggan_login
 		$cek = $this->ci->Auth_m->login_pelanggan($email, $password);
 		if($cek) {
 			$data = [
+				'id_pelanggan' => $cek->id_pelanggan,
 				'email' => $cek->email,
 				'nama_pelanggan' => $cek->nama_pelanggan
 			];
@@ -47,6 +48,7 @@ class Pelanggan_login
 
 	public function logout_akun()
 	{
+		$this->ci->session->unset_userdata('id_pelanggan');
 		$this->ci->session->unset_userdata('email');
 		$this->ci->session->unset_userdata('nama_pelanggan');
 		$this->ci->session->set_flashdata('pesan', '<div class="alert alert-success">Berhasil Logout.</div>');

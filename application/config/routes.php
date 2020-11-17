@@ -60,7 +60,7 @@ $route['admin/pengaturan'] = 'admin/dashboard/pengaturan';
 $route['daftar'] = 'pelanggan/daftar';
 $route['login'] = 'pelanggan/login';
 
-$route['pesanan_saya'] = 'home/pesanan_saya';
+$route['pesanan'] = 'home/pesanan_saya';
 
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

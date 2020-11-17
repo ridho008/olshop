@@ -80,7 +80,7 @@
             </a>
             <div class="dropdown-divider"></div>
             <a href="<?= base_url('belanja'); ?>" class="dropdown-item dropdown-footer">Lihat Keranjang</a>
-            <a href="#" class="dropdown-item dropdown-footer">Checkout</a>
+            <a href="<?= base_url('belanja/checkout'); ?>" class="dropdown-item dropdown-footer">Checkout</a>
         <?php endif; ?>
         </div>
       </li>
@@ -105,7 +105,7 @@
             <i class="fas fa-user-circle mr-2"></i> Akun Saya
           </a>
           <div class="dropdown-divider"></div>
-          <a href="<?= base_url('pesanan_saya'); ?>" class="dropdown-item">
+          <a href="<?= base_url('pesanan'); ?>" class="dropdown-item">
             <i class="fas fa-shopping-cart mr-2"></i> Pesanan Saya
           </a>
           <div class="dropdown-divider"></div>

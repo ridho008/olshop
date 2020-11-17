@@ -181,6 +181,7 @@
 			          <!-- /.row -->
 
 			          <!-- this row will not appear when printing -->
+			          <input type="hidden" name="id_pelanggan" value="<?= $this->session->userdata('id_pelanggan'); ?>">
 			          <input type="hidden" name="no_order" value="<?= $no_order; ?>">
 			          <input type="hidden" name="estimasi">
 			          <input type="hidden" name="ongkir">
