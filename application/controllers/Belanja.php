@@ -133,12 +133,58 @@ class Belanja extends CI_Controller {
 	public function bayar($id_transaksi)
 	{
 		$navKategori = $this->Kategori_m->get('kategori')->result();
+		$detailBayar = $this->Transaksi_m->get_where('transaksi', ['id_transaksi' => $id_transaksi])->row();
+		$rekening = $this->Transaksi_m->get('rekening')->result();
 		$data = [
 			'title' => 'Pembayaran',
 			'layout' => 'home/bayar',
-			'navKategori' => $navKategori
+			'navKategori' => $navKategori,
+			'detailBayar' => $detailBayar,
+			'rekening' => $rekening
 		];
-		$this->load->view('layout/front/wrapper', $data);
+
+		$this->form_validation->set_rules('nama', 'Atas Nama', 'trim|required');
+		$this->form_validation->set_rules('bank', 'Nama Bank', 'trim|required');
+		$this->form_validation->set_rules('no_rek', 'Nomor Rekening', 'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->load->view('layout/front/wrapper', $data);
+		} else {
+			$bukti = $_FILES['bukti']['name'];
+
+			if($bukti != null) {
+				$config['upload_path']          = './assets/front/img/bukti_pembayaran/';
+	            $config['allowed_types']        = 'jpg|png|jpeg';
+	            $config['max_size']             = 2048;
+
+	            $this->load->library('upload', $config);
+	            $this->upload->initialize($config);
+
+	            if (!$this->upload->do_upload('bukti'))
+	            {
+	            	$this->session->set_flashdata('pesan', '<div class="alert alert-danger">'. $this->upload->display_errors() .'</div>');
+	                redirect('belanja/bayar/' . $id_transaksi);
+	            }
+	            else
+	            {
+	                $this->upload->data('file_name');
+	            }
+	        } else {
+	        	$this->session->set_flashdata('pesan', '<div class="alert alert-danger">Bukti Pembayaran Wajib Diupload.</div>');
+	            redirect('belanja/bayar/' . $id_transaksi);
+	        }
+
+	        $data = [
+				'bukti_bayar' => $bukti,
+				'atas_nama' => html_escape($this->input->post('nama', true)),
+				'nama_bank' => html_escape($this->input->post('bank', true)),
+				'no_rek' => html_escape($this->input->post('no_rek', true)),
+				'status_bayar' => 1
+			];
+
+			$this->Transaksi_m->update_where('transaksi', $data, ['id_transaksi' => $id_transaksi]);
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success">Bukti Pembayaran Berhasil Dikirim.</div>');
+			redirect('pesanan');
+		}
 	}
 
 

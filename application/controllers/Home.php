@@ -61,8 +61,7 @@ class Home extends CI_Controller {
 	{
 		$navKategori = $this->Kategori_m->get('kategori')->result();
 		$where = [
-			'id_pelanggan' => $this->session->userdata('id_pelanggan'),
-			'status_bayar' => 0
+			'id_pelanggan' => $this->session->userdata('id_pelanggan')
 		];
 		$belum_bayar = $this->Transaksi_m->get_where('transaksi', $where)->result();
 		$data = [

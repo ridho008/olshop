@@ -23,7 +23,7 @@ class Transaksi_m extends CI_Model {
 		$this->db->insert($table, $data);
 	}
 
-	public function update($table, $data, $where)
+	public function update_where($table, $data, $where)
 	{
 		$this->db->where($where);
 		$this->db->update($table, $data);

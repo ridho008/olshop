@@ -40,9 +40,17 @@
                 	<td><?= $bb->no_order; ?></td>
                 	<td><?= date('d-m-Y', strtotime($bb->tgl_order)); ?></td>
                 	<td><?= strtoupper($bb->ekpedisi) . '/' . $bb->paket . '/' . $bb->ongkir; ?></td>
-                	<td>Rp.<?= number_format($bb->total_bayar,0 , ',', '.'); ?> <br><span class="badge badge-info">Belum Bayar</span></td>
+                	<td>Rp.<?= number_format($bb->total_bayar,0 , ',', '.'); ?> <br>
+                		<?php if($bb->status_bayar == 0) : ?>
+                		<span class="badge badge-info">Belum Bayar</span>
+                		<?php else: ?>
+                			<span class="badge badge-success">Menunggu Konfirmasi</span>
+                		<?php endif; ?>
+                	</td>
                 	<td>
+                		<?php if($bb->status_bayar == 0) : ?>
                 		<a href="<?= base_url('belanja/bayar/' . $bb->id_transaksi); ?>" class="btn btn-success btn-sm">Bayar</a>
+                	<?php endif; ?>
                 	</td>
                 </tr>
              		<?php endforeach; ?>
