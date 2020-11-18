@@ -81,10 +81,56 @@
              </div> 
           </div>
           <div class="tab-pane fade" id="custom-tabs-four-dikirim" role="tabpanel" aria-labelledby="custom-tabs-four-dikirim-tab">
-             Morbi turpis dolor, vulputate vitae felis non, tincidunt congue mauris. Phasellus volutpat augue id mi placerat mollis. Vivamus faucibus eu massa eget condimentum. Fusce nec hendrerit sem, ac tristique nulla. Integer vestibulum orci odio. Cras nec augue ipsum. Suspendisse ut velit condimentum, mattis urna a, malesuada nunc. Curabitur eleifend facilisis velit finibus tristique. Nam vulputate, eros non luctus efficitur, ipsum odio volutpat massa, sit amet sollicitudin est libero sed ipsum. Nulla lacinia, ex vitae gravida fermentum, lectus ipsum gravida arcu, id fermentum metus arcu vel metus. Curabitur eget sem eu risus tincidunt eleifend ac ornare magna. 
+             <div class="table-responsive">
+              <table class="table">
+                <tr>
+                  <th>No.Order</th>
+                  <th>Tanggal Order</th>
+                  <th>Ekpedisi</th>
+                  <th>Total Bayar</th>
+                  <th>No.Resi</th>
+                  <th><i class="fas fa-cogs"></i></th>
+                </tr>
+                <?php foreach($dikirim as $bb) : ?>
+                <tr>
+                  <td><?= $bb->no_order; ?></td>
+                  <td><?= date('d-m-Y', strtotime($bb->tgl_order)); ?></td>
+                  <td><?= strtoupper($bb->ekpedisi) . '/' . $bb->paket . '/' . $bb->ongkir; ?></td>
+                  <td>Rp.<?= number_format($bb->total_bayar,0 , ',', '.'); ?> <br>
+                    <span class="badge badge-success">Terkirim</span>
+                  </td>
+                  <td><?= $bb->no_resi; ?></td>
+                  <td>
+                    <button type="button" data-toggle="modal" data-target="#modal-terima<?= $bb->id_transaksi; ?>" class="btn btn-success btn-sm"><i class="fas fa-check"></i> Diterima</button>
+                  </td>
+                </tr>
+                <?php endforeach; ?>
+              </table>
+             </div> 
           </div>
           <div class="tab-pane fade" id="custom-tabs-four-selesai" role="tabpanel" aria-labelledby="custom-tabs-four-selesai-tab">
-             Pellentesque vestibulum commodo nibh nec blandit. Maecenas neque magna, iaculis tempus turpis ac, ornare sodales tellus. Mauris eget blandit dolor. Quisque tincidunt venenatis vulputate. Morbi euismod molestie tristique. Vestibulum consectetur dolor a vestibulum pharetra. Donec interdum placerat urna nec pharetra. Etiam eget dapibus orci, eget aliquet urna. Nunc at consequat diam. Nunc et felis ut nisl commodo dignissim. In hac habitasse platea dictumst. Praesent imperdiet accumsan ex sit amet facilisis. 
+             <div class="table-responsive">
+              <table class="table">
+                <tr>
+                  <th>No.Order</th>
+                  <th>Tanggal Order</th>
+                  <th>Ekpedisi</th>
+                  <th>Total Bayar</th>
+                  <th>No.Resi</th>
+                </tr>
+                <?php foreach($selesai as $bb) : ?>
+                <tr>
+                  <td><?= $bb->no_order; ?></td>
+                  <td><?= date('d-m-Y', strtotime($bb->tgl_order)); ?></td>
+                  <td><?= strtoupper($bb->ekpedisi) . '/' . $bb->paket . '/' . $bb->ongkir; ?></td>
+                  <td>Rp.<?= number_format($bb->total_bayar,0 , ',', '.'); ?> <br>
+                    <span class="badge badge-success">Selesai :)</span>
+                  </td>
+                  <td><?= $bb->no_resi; ?></td>
+                </tr>
+                <?php endforeach; ?>
+              </table>
+             </div>
           </div>
         </div>
       </div>
@@ -92,3 +138,28 @@
     </div>
   </div>
 </div>
+
+<!-- Modal Terima -->
+<?php foreach($dikirim as $bb) : ?>
+<div class="modal fade" id="modal-terima<?= $bb->id_transaksi; ?>">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Sudah Menerima Barang ?</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Apakah Anda Sudah Menerima Barang Yang Anda Pesan ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-dark" data-dismiss="modal">Tidak</button>
+        <a href="<?= base_url('admin/barang/diterima/' . $bb->id_transaksi); ?>" class="btn btn-outline-success">Ya</a>
+      </div>
+    </div>
+    <!-- /.modal-content -->
+  </div>
+  <!-- /.modal-dialog -->
+</div>
+<?php endforeach; ?>

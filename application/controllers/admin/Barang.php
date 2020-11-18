@@ -148,12 +148,16 @@ class Barang extends CI_Controller {
 	{
 		$pesanan = $this->Barang_m->get_where('transaksi', ['status_order' => 0])->result();
 		$pesananProses = $this->Barang_m->get_where('transaksi', ['status_order' => 1])->result();
+		$pesananDikirim = $this->Barang_m->get_where('transaksi', ['status_order' => 2])->result();
+		$pesananSelesai = $this->Barang_m->get_where('transaksi', ['status_order' => 3])->result();
 		
 		$data = [
 			'title' => 'Pesanan Masuk',
 			'layout' => 'admin/pesanan/pesanan_masuk',
 			'pesanan' => $pesanan,
-			'pesananProses' => $pesananProses
+			'pesananProses' => $pesananProses,
+			'pesananDikirim' => $pesananDikirim,
+			'pesananSelesai' => $pesananSelesai
 		];
 
 		$this->load->view('layout/back/wrapper', $data);
@@ -168,6 +172,29 @@ class Barang extends CI_Controller {
 		$this->Barang_m->update_where('transaksi', $data, ['id_transaksi' => $id_transaksi]);
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success">Pesanan Berhasil Diproses.</div>');
 		redirect('admin/pesanan');
+	}
+
+	public function kirim_barang($id_transaksi)
+	{
+		$dataKirim = [
+			'status_order' => 2,
+			'no_resi' => html_escape($this->input->post('resi', true))
+		];
+		$pesananProses = $this->Barang_m->update_where('transaksi', $dataKirim, ['id_transaksi' => $id_transaksi]);
+	
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success">Barang Berhasil Dikirim.</div>');
+		redirect('admin/pesanan');
+	}
+
+	public function diterima($id_transaksi)
+	{
+		$where = [
+			'status_order' => 3
+		];
+		$pesananProses = $this->Barang_m->update_where('transaksi', $where, ['id_transaksi' => $id_transaksi]);
+	
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success">Barang Berhasil Diterima Oleh Konsumen.</div>');
+		redirect('pesanan');
 	}
 }
 
