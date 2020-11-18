@@ -60,15 +60,22 @@ class Home extends CI_Controller {
 	public function pesanan_saya()
 	{
 		$navKategori = $this->Kategori_m->get('kategori')->result();
-		$where = [
-			'id_pelanggan' => $this->session->userdata('id_pelanggan')
+		$wherebb = [
+			'id_pelanggan' => $this->session->userdata('id_pelanggan'),
+			'status_order' => 0
 		];
-		$belum_bayar = $this->Transaksi_m->get_where('transaksi', $where)->result();
+		$belum_bayar = $this->Transaksi_m->get_where('transaksi', $wherebb)->result();
+		$whereProses = [
+			'id_pelanggan' => $this->session->userdata('id_pelanggan'),
+			'status_order' => 1
+		];
+		$diproses = $this->Transaksi_m->get_where('transaksi', $whereProses)->result();
 		$data = [
 			'title' => 'Pesanan Saya',
 			'layout' => 'home/pesanan_saya',
 			'navKategori' => $navKategori,
-			'belum_bayar' => $belum_bayar
+			'belum_bayar' => $belum_bayar,
+			'diproses' => $diproses
 		];
 		$this->load->view('layout/front/wrapper', $data);
 	}

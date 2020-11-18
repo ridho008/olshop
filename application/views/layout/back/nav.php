@@ -153,6 +153,12 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="<?= base_url('admin/pesanan'); ?>" class="nav-link<?= $this->uri->segment(2) == 'pesanan' ? ' active' : '' ?>">
+              <i class="nav-icon fas fa-envelope"></i>
+              <p>Pesanan Masuk</p>
+            </a>
+          </li>
+          <li class="nav-item">
             <a href="<?= base_url('admin/pengaturan'); ?>" class="nav-link<?= $this->uri->segment(2) == 'pengaturan' ? ' active' : '' ?>">
               <i class="nav-icon fas fa-cogs"></i>
               <p>Pengaturan</p>

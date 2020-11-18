@@ -55,6 +55,7 @@ $route['kategori/(:any)'] = 'home/kategori/$1';
 $route['barang/(:num)'] = 'home/detail/$1';
 
 $route['admin/pengaturan'] = 'admin/dashboard/pengaturan';
+$route['admin/pesanan'] = 'admin/barang/pesanan_masuk';
 
 // Daftar & Login Pelanggan
 $route['daftar'] = 'pelanggan/daftar';

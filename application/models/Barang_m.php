@@ -60,4 +60,10 @@ class Barang_m extends CI_Model {
 		// $this->db->where('barang.id_barang', $id_barang);
 		return $this->db->get_where('barang', $id_barang);
 	}
+
+	public function update_where($table, $data, $where)
+	{
+		$this->db->where($where);
+		$this->db->update($table, $data);
+	}
 }

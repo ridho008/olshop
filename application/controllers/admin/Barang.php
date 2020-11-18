@@ -142,6 +142,33 @@ class Barang extends CI_Controller {
 		$this->session->set_flashdata('pesan', '<div class="alert alert-success">Data Barang Berhasil Dihapus.</div>');
 		redirect('admin/barang');
 	}
+
+
+	public function pesanan_masuk()
+	{
+		$pesanan = $this->Barang_m->get_where('transaksi', ['status_order' => 0])->result();
+		$pesananProses = $this->Barang_m->get_where('transaksi', ['status_order' => 1])->result();
+		
+		$data = [
+			'title' => 'Pesanan Masuk',
+			'layout' => 'admin/pesanan/pesanan_masuk',
+			'pesanan' => $pesanan,
+			'pesananProses' => $pesananProses
+		];
+
+		$this->load->view('layout/back/wrapper', $data);
+	}
+
+	public function proses($id_transaksi)
+	{
+		$data = [
+			'status_order' => 1
+		];
+
+		$this->Barang_m->update_where('transaksi', $data, ['id_transaksi' => $id_transaksi]);
+		$this->session->set_flashdata('pesan', '<div class="alert alert-success">Pesanan Berhasil Diproses.</div>');
+		redirect('admin/pesanan');
+	}
 }
 
 /* End of file Barang.php */
