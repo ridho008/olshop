@@ -35,7 +35,7 @@ class User extends CI_Controller {
 	public function add()
 	{
 		$nama = html_escape($this->input->post('nama', true));
-		$username = html_escape($this->input->post('username', true));
+		$username = html_escape(str_replace(' ', '', strtolower($this->input->post('username', true))));
 		$password = html_escape(sha1($this->input->post('password', true)));
 		$level = html_escape($this->input->post('level', true));
 
@@ -54,22 +54,37 @@ class User extends CI_Controller {
 	//Update one item
 	public function update($id)
 	{
-		$nama = html_escape($this->input->post('nama', true));
-		$username = html_escape($this->input->post('username', true));
-		$password = html_escape(sha1($this->input->post('password', true)));
-		$level = html_escape($this->input->post('level', true));
+		$user = $this->User_m->get('users', ['id_user' => $id])->row();
+		if(!empty($user->username)) {
+			$username_field = "trim|required";
+		} else {
+			$username_field = "trim|required|is_unique[users.username]";
+		}
+		$this->form_validation->set_rules('nama', 'Nama User', 'trim|required');
+		$this->form_validation->set_rules('username', 'Username', "trim|required|$username_field");
+		$this->form_validation->set_rules('password', 'Password', 'trim|required');
+		$this->form_validation->set_rules('level', 'Level', 'trim|required');
+		if ($this->form_validation->run() == FALSE) {
+			$this->index();
+		} else {
+			$nama = html_escape($this->input->post('nama', true));
+			$username = html_escape(str_replace(' ', '', strtolower($this->input->post('username', true))));
+			$password = html_escape(sha1($this->input->post('password', true)));
+			$level = html_escape($this->input->post('level', true));
 
-		$data = [
-			'username' => $username,
-			'password' => $password,
-			'nama_user' => $nama,
-			'level' => $level
-		];
+			$data = [
+				'username' => $username,
+				'password' => $password,
+				'nama_user' => $nama,
+				'level' => $level
+			];
 
-		$where = ['id_user' => $id];
-		$this->User_m->update('users', $data, $where);
-		$this->session->set_flashdata('pesan', '<div class="alert alert-success">Data User Berhasil Diubah.</div>');
-		redirect('admin/user');
+			$where = ['id_user' => $id];
+			$this->User_m->update('users', $data, $where);
+			$this->session->set_flashdata('pesan', '<div class="alert alert-success">Data User Berhasil Diubah.</div>');
+			redirect('admin/user');
+		}
+		
 	}
 
 	//Delete one item

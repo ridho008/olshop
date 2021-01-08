@@ -25,5 +25,12 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?= base_url('assets/back'); ?>/dist/js/demo.js"></script>
 <script src="<?= base_url('assets/back'); ?>/dist/js/myscript.js"></script>
+<script>
+  window.setTimeout(function() {
+     $('.alert').fadeTo(500, 0).slideUp(500, function() {
+       $(this).remove();
+     });
+   }, 3000);
+</script>
 </body>
 </html>

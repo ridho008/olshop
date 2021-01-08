@@ -6,11 +6,11 @@
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="../../index3.html" class="nav-link">Home</a>
+        <a href="<?= base_url('home'); ?>" target="_blank" class="nav-link">Website</a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li> -->
     </ul>
 
     <!-- SEARCH FORM -->
@@ -36,24 +36,19 @@
           <!-- <span class="badge badge-warning navbar-badge">15</span> -->
         </a>
         <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-          <span class="dropdown-item dropdown-header">15 Notifications</span>
+          <span class="dropdown-item dropdown-header">Selamat Datang <?= $this->session->userdata('nama_user'); ?></span>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-envelope mr-2"></i> 4 new messages
-            <span class="float-right text-muted text-sm">3 mins</span>
-          </a>
-          <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-users mr-2"></i> 8 friend requests
+          <a href="<?= base_url('profile'); ?>" class="dropdown-item">
+            <i class="fas fa-users mr-2"></i> Profile
             <span class="float-right text-muted text-sm">12 hours</span>
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item">
-            <i class="fas fa-file mr-2"></i> 3 new reports
-            <span class="float-right text-muted text-sm">2 days</span>
+          <a href="<?= base_url('auth/logout'); ?>" class="dropdown-item">
+            <i class="fas fa-sign-out-alt mr-2"></i> Logout
+            <!-- <span class="float-right text-muted text-sm">2 days</span> -->
           </a>
           <div class="dropdown-divider"></div>
-          <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a>
+          <a href="#" class="dropdown-item dropdown-footer">Login : <?= $this->session->userdata('level') == 1 ? 'Admin' : 'User'; ?></a>
         </div>
       </li>
       <li class="nav-item">
@@ -68,23 +63,23 @@
   <!-- Main Sidebar Container -->
   <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="../../index3.html" class="brand-link">
-      <img src="../../dist/img/AdminLTELogo.png"
+    <a href="<?= base_url('admin/dashboard'); ?>" class="brand-link">
+      <!-- <img src="../../dist/img/AdminLTELogo.png"
            alt="AdminLTE Logo"
            class="brand-image img-circle elevation-3"
-           style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
+           style="opacity: .8"> -->
+      <span class="brand-text font-weight-light">Toko Online CI3</span>
     </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
       <!-- Sidebar user (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-        <div class="image">
+        <!-- <div class="image">
           <img src="../../dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
-        </div>
+        </div> -->
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block"><?= $this->session->userdata('nama_user'); ?></a>
         </div>
       </div>
 
@@ -128,12 +123,14 @@
               </li>
             </ul>
           </li> -->
+          <?php if($this->session->userdata('level') == 1) : ?>
           <li class="nav-item">
             <a href="<?= base_url('admin/user'); ?>" class="nav-link<?= $this->uri->segment(2) == 'user' ? ' active' : '' ?>">
               <i class="nav-icon fas fa-user"></i>
               <p>User</p>
             </a>
           </li>
+          <?php endif; ?>
           <li class="nav-item">
             <a href="<?= base_url('admin/kategori'); ?>" class="nav-link<?= $this->uri->segment(2) == 'kategori' ? ' active' : '' ?>">
               <i class="nav-icon fas fa-tag"></i>
@@ -159,11 +156,19 @@
             </a>
           </li>
           <li class="nav-item">
+            <a href="<?= base_url('admin/laporan'); ?>" class="nav-link<?= $this->uri->segment(2) == 'laporan' ? ' active' : '' ?>">
+              <i class="nav-icon fas fa-file"></i>
+              <p>Laporan</p>
+            </a>
+          </li>
+          <?php if($this->session->userdata('level') == 1) : ?>
+          <li class="nav-item">
             <a href="<?= base_url('admin/pengaturan'); ?>" class="nav-link<?= $this->uri->segment(2) == 'pengaturan' ? ' active' : '' ?>">
               <i class="nav-icon fas fa-cogs"></i>
               <p>Pengaturan</p>
             </a>
           </li>
+          <?php endif; ?>
           <li class="nav-item">
             <a href="<?= base_url('auth/logout'); ?>" class="nav-link">
               <i class="nav-icon fas fa-sign-out-alt"></i>
@@ -174,11 +179,11 @@
           
           
           
-          <li class="nav-header">EXAMPLES</li>
+          <!-- <li class="nav-header">EXAMPLES</li> -->
           
           
           
-          <li class="nav-header">MULTI LEVEL EXAMPLE</li>
+          <!-- <li class="nav-header">MULTI LEVEL EXAMPLE</li> -->
           
           
         </ul>
