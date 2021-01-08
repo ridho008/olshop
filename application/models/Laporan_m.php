@@ -13,4 +13,23 @@ class Laporan_m extends CI_Model {
 		$this->db->where('DAY(transaksi.tgl_order)', $tanggal);
 		return $this->db->get()->result();
 	}
+
+	public function getLaporanBulanan($tahun, $bulan)
+	{
+		$this->db->select('*');
+		$this->db->from('transaksi');
+		$this->db->where('YEAR(tgl_order)', $tahun);
+		$this->db->where('MONTH(tgl_order)', $bulan);
+		$this->db->where('status_bayar', 1);
+		return $this->db->get()->result();
+	}
+
+	public function getLaporanTahunan($tahun)
+	{
+		$this->db->select('*');
+		$this->db->from('transaksi');
+		$this->db->where('YEAR(tgl_order)', $tahun);
+		$this->db->where('status_bayar', 1);
+		return $this->db->get()->result();
+	}
 }

@@ -107,7 +107,50 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              <?= str_replace(' ', '', 'a Ridho Surya') ?>
+              <?= form_open('admin/laporan/bulan', 'target="_blank"'); ?>
+              <div class="row">
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="bulan">Bulan</label>
+                    <select name="bulan" id="bulan" class="form-control">
+                      <option value="">-- Pilih Bulan</option>
+                      <option value="1" <?= (date('m') == 1) ? 'selected' : '' ?>>Januari</option>
+                      <option value="2" <?= (date('m') == 2) ? 'selected' : '' ?>>Februari</option>
+                      <option value="3" <?= (date('m') == 3) ? 'selected' : '' ?>>Maret</option>
+                      <option value="4" <?= (date('m') == 4) ? 'selected' : '' ?>>April</option>
+                      <option value="5" <?= (date('m') == 5) ? 'selected' : '' ?>>Mei</option>
+                      <option value="6" <?= (date('m') == 6) ? 'selected' : '' ?>>Juni</option>
+                      <option value="7" <?= (date('m') == 7) ? 'selected' : '' ?>>Juli</option>
+                      <option value="8" <?= (date('m') == 8) ? 'selected' : '' ?>>Agustus</option>
+                      <option value="9" <?= (date('m') == 9) ? 'selected' : '' ?>>September</option>
+                      <option value="10" <?= (date('m') == 10) ? 'selected' : '' ?>>Oktober</option>
+                      <option value="11" <?= (date('m') == 11) ? 'selected' : '' ?>>November</option>
+                      <option value="12" <?= (date('m') == 12) ? 'selected' : '' ?>>Desember</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="form-group">
+                    <label for="tahun">Tahun</label>
+                    <select name="tahun" id="tahun" class="form-control">
+                      <option value="">-- Pilih Tahun --</option>
+                      <?php for($i = 2015; $i <= date('Y'); $i++) : ?>
+                        <?php if($i == date('Y')) : ?>
+                        <option value="<?= $i; ?>" selected><?= $i; ?></option>
+                        <?php else : ?>
+                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                        <?php endif; ?>
+                      <?php endfor; ?>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <button type="submit" class="btn btn-primary btn-block btn-sm"><i class="fas fa-print"></i> Cetak</button>
+                  </div>
+                </div>
+              </div>
+              <?= form_close(); ?>
             </div>
             <!-- /.card-body -->
           </div>
@@ -125,7 +168,26 @@
             </div>
             <!-- /.card-header -->
             <div class="card-body">
-              
+              <?= form_open('admin/laporan/tahun', 'target="_blank"'); ?>
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="tahun">Tahun</label>
+                    <select name="tahun" id="tahun" class="form-control">
+                      <option value="">-- Pilih Tahun --</option>
+                      <?php for($i = 2015; $i <= date('Y'); $i++) : ?>
+                        <?php if($i == date('Y')) : ?>
+                        <option value="<?= $i; ?>" selected><?= $i; ?></option>
+                        <?php else : ?>
+                        <option value="<?= $i; ?>"><?= $i; ?></option>
+                        <?php endif; ?>
+                      <?php endfor; ?>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-primary btn-block btn-sm"><i class="fas fa-print"></i> Cetak</button>
+                </div>
+              </div>
+              <?= form_close(); ?>
             </div>
             <!-- /.card-body -->
           </div>
